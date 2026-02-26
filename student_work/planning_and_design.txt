@@ -31,7 +31,7 @@ Gameplay Process:
 # running into yourself or the walls. You win by filling in every square.
 
 Game Icons:
-Snake head:
+Snake head: "\U0001F432"
 Snake body:
 Obstacles/rocks:
 Apples: 
