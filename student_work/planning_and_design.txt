@@ -29,3 +29,9 @@ Gameplay Process:
 # You start off with only one square size snake body, then move around with the arrows on your keyboard in order to "eat" randomly\
 # appearing apples/food/emojis. Everytime you run into/eat one successfully, you grow by one square. Throughout this, you try to avoid
 # running into yourself or the walls. You win by filling in every square.
+
+Game Icons:
+Snake head:
+Snake body:
+Obstacles/rocks:
+Apples: 
