@@ -6,7 +6,6 @@
 
 # To make this work, you may have to type this into the terminal --> pip install curses
 import curses
-
 game_data = {
     'width': 10,
     'height': 10,
@@ -89,4 +88,28 @@ def move_player(key):
     stdscr.refresh()
     stdscr.getkey()  # pause so player can see board
 
+def main(stdscr):
+    curses.curs_set(0)
+    stdscr.nodelay(True)
+
+    draw_board(stdscr)
+
+    while True:
+        try:
+            key = stdscr.getkey()
+        except:
+            key = None
+
+        if key:
+            if key.lower() == "q":
+                break
+            move_player(key)
+
+            move_eagle()
+            spawn_leaf()
+
+            draw_board(stdscr)
+            time.sleep(0.2)
+
+curses.wrapper(main)
 curses.wrapper(draw_board)
