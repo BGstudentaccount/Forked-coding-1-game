@@ -6,6 +6,9 @@
 
 # To make this work, you may have to type this into the terminal --> pip install curses
 import curses
+import random
+import time
+
 game_data = {
     'width': 10,
     'height': 10,
@@ -50,12 +53,9 @@ def main(stdscr):
                 break
             move_player(key)
 
-            move_eagle()
-            spawn_leaf()
-
             draw_board(stdscr)
             time.sleep(0.2)
-            
+
 def draw_board(stdscr):
     curses.start_color()
     curses.use_default_colors()
@@ -108,8 +108,7 @@ def move_player(key):
     game_data['player']['y'] = new_y
     game_data['player']['score'] += 1
 
-    stdscr.refresh()
-    stdscr.getkey()  # pause so player can see board
+     # pause so player can see board
 
 curses.wrapper(main)
-curses.wrapper(draw_board)
+curses.wrapper(draw_board(stdscr))
