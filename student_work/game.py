@@ -42,7 +42,7 @@ def display_welcome_screen():
     print("Use WSAD for movement")
     print("Avoid running into the walls / obstacles!")
     print("Don't Starve!")
-
+    
 def main(stdscr):
     curses.curs_set(0)
     stdscr.nodelay(True)
