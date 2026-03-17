@@ -35,6 +35,7 @@ game_data = {
     # 'leaf': "\U0001F343",
     'empty': "  "
 }
+
 def display_welcome_screen():
     print(" ")
     print("Welcome to Snake!")
@@ -89,33 +90,37 @@ def draw_board(stdscr):
         stdscr.addstr(y, 0, row, curses.color_pair(1))
 
 def move_player(key):
-    x = game_data['player']['x']
-    y = game_data['player']['y']
-
-    new_x, new_y = x, y
     key = key.lower()
+    px = game_data['player']["x"]
+    py = game_data['player']["y"]
 
-    if key == "w" and y > 0:
+    new_x, new_y = px, py
+
+    if key == "w" and py > 0:
         new_y -= 1
-    elif key == "s" and y < game_data['height'] - 1:
+    elif key == "s" and py < game_data['height'] - 1:
         new_y += 1
-    elif key == "a" and x > 0:
+    elif key == "a" and px > 0:
         new_x -= 1
-    elif key == "d" and x < game_data['width'] - 1:
+    elif key == "d" and px < game_data['width'] - 1:
         new_x += 1
     else:
-        return  # Invalid key or move off board
+        return False
 
-    # Check for obstacles
-    if any(o['x'] == new_x and o['y'] == new_y for o in game_data['obstacles']):
-        return
+    # Check obstacle collision
+    if any(o["x"] == new_x and o["y"] == new_y for o in game_data['obstacles']):
+        return False
 
-    # Update position and increment score
-    game_data['player']['x'] = new_x
-    game_data['player']['y'] = new_y
-    game_data['player']['score'] += 1
+    game_data['player']["x"] = new_x
+    game_data['player']["y"] = new_y
 
-     # pause so player can see board
+    # Energy decreases per move
+    game_data['player']["energy"] -= 1
+
+    # Score increases per move survived
+    game_data['player']["score"] += 1
+
+    return True
 
 display_welcome_screen()
 curses.wrapper(main)
