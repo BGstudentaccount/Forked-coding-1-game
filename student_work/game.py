@@ -35,6 +35,13 @@ game_data = {
     # 'leaf': "\U0001F343",
     'empty': "  "
 }
+def display_welcome_screen():
+    print(" ")
+    print("Welcome to Snake!")
+    print(" ")
+    print("Use WSAD for movement")
+    print("Avoid running into the walls / obstacles!")
+    print("Don't Starve!")
 
 def main(stdscr):
     curses.curs_set(0)
@@ -110,5 +117,6 @@ def move_player(key):
 
      # pause so player can see board
 
+display_welcome_screen()
 curses.wrapper(main)
 curses.wrapper(draw_board(stdscr))
