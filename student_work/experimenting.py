@@ -30,7 +30,7 @@ def display_welcome_screen():
     print("Snake!")
     print(" ")
     print("Use WSAD for movement")
-    print("Avoid the hawk")
+    print("Avoid the drone!")
     print("Don't Starve!")
 
 def draw_board(stdscr):
