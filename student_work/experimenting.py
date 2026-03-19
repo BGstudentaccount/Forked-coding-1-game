@@ -4,8 +4,8 @@ import random
 
 # Board setup
 game_data = {
-    'width': 5,
-    'height': 5,
+    'width': 10,
+    'height': 10,
     'player': {"x": 0, "y": 0, "score": 0, "energy": 10, "max_energy": 10},
     'eagle_pos': {"x": 4, "y": 4},
     'collectibles': [
@@ -102,10 +102,11 @@ def check_collectibles():
             game_data['player']["y"] == c["y"]):
 
             c["collected"] = True
-            game_data['player']["energy"] = min(
-                game_data['player']["max_energy"],
-                game_data['player']["energy"] + 5
-            )
+            return game_data['player']["score"] + 5 # I added this
+            #game_data['player']["energy"] = min(
+                #game_data['player']["max_energy"],
+                #game_data['player']["score"] + 5
+            #)
 
 def move_player(key):
     key = key.lower()
@@ -133,21 +134,21 @@ def move_player(key):
     game_data['player']["y"] = new_y
 
     # Energy decreases per move
-    game_data['player']["energy"] -= 1
+    #game_data['player']["energy"] -= 1
 
     # Score increases per move survived
-    game_data['player']["score"] += 1
+    #game_data['player']["score"] += 1
 
     return True
 
 def spawn_leaf():
     # Limit number of leaves on board
     active_leaves = [c for c in game_data['collectibles'] if not c["collected"]]
-    if len(active_leaves) >= 3:
+    if len(active_leaves) >= 10:
         return
 
     # 20% chance each turn
-    if random.random() > 0.2:
+    if random.random() > 0.01:
         return
 
     while True:
@@ -222,7 +223,7 @@ def play_game(stdscr):
 
         draw_board(stdscr)
 
-        time.sleep(0.1)
+        time.sleep(0.25)
 
     stdscr.clear()
     stdscr.addstr(2, 2, "GAME OVER")

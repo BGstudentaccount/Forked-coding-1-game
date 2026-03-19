@@ -123,5 +123,7 @@ def move_player(key):
     return True
 
 display_welcome_screen()
+time.sleep(3)
 curses.wrapper(main)
-curses.wrapper(draw_board(stdscr))
+#curses.wrapper(draw_board(stdscr))
+
