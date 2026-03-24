@@ -29,8 +29,40 @@ game_data = {
         {"x": 0, "y": 8},
         {"x": 0, "y": 9},
         {"x": 0, "y": 10},
-        {"x": 0, "y": 11},
         {"x": 1, "y": 0},
+        {"x": 2, "y": 0},
+        {"x": 3, "y": 0},
+        {"x": 4, "y": 0},
+        {"x": 5, "y": 0},
+        {"x": 6, "y": 0},
+        {"x": 7, "y": 0},
+        {"x": 8, "y": 0},
+        {"x": 9, "y": 0},
+        {"x": 10, "y": 0},
+        {"x": 10, "y": 1},
+        {"x": 10, "y": 2},
+        {"x": 10, "y": 3},
+        {"x": 10, "y": 4},
+        {"x": 10, "y": 5},
+        {"x": 10, "y": 6},
+        {"x": 10, "y": 7},
+        {"x": 10, "y": 8},
+        {"x": 10, "y": 9},
+        {"x": 10, "y": 10},
+        {"x": 0, "y": 10},
+        {"x": 1, "y": 10},
+        {"x": 2, "y": 10},
+        {"x": 3, "y": 10},
+        {"x": 4, "y": 10},
+        {"x": 5, "y": 10},
+        {"x": 6, "y": 10},
+        {"x": 7, "y": 10},
+        {"x": 8, "y": 10},
+        {"x": 9, "y": 10},
+        {"x": 10, "y": 10},
+        {"x": 10, "y": 10},
+        # The board starts from 0, not 1, as computers do.
+
         
     ],
 
@@ -127,10 +159,10 @@ def move_player(key):
     game_data['player']["y"] = new_y
 
     # Energy decreases per move
-    game_data['player']["energy"] -= 1
+    #game_data['player']["energy"] -= 1
 
     # Score increases per move survived
-    game_data['player']["score"] += 1
+    #game_data['player']["score"] += 1
 
     return True
 

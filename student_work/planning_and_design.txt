@@ -12,6 +12,7 @@ Part I: Planning & Design (15 pts)
 
 Game Idea:
 Snake?
+Pac man
 NO PLATFORMERS AS THEY NEED PHYSICS
 
 Game Rules:
@@ -20,12 +21,13 @@ Game Rules:
 #-Don't run into obstacles
 
 Major Game Elements:
-#-5x5 board size
-#-Snake
+#-11x11 board size
+#-Pac man
 #-Food (emojis) --> apples, etc.
 #-Scoring system: Every square survived is one point. Max score is every square (25 points for 25 square board size)
 
 Gameplay Process:
+REMAKE THIS 
 # You start off with only one square size snake body, then move around with the arrows on your keyboard in order to "eat" randomly\
 # appearing apples/food/emojis. Everytime you run into/eat one successfully, you grow by one square. Throughout this, you try to avoid
 # running into yourself or the walls. You win by filling in every square.
