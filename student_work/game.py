@@ -60,7 +60,10 @@ game_data = {
         {"x": 8, "y": 10},
         {"x": 9, "y": 10},
         {"x": 10, "y": 10},
-        {"x": 10, "y": 10},
+        {"x": 4, "y": 5},
+        {"x": 6, "y": 5},
+        {"x": 5, "y": 6},
+        #{"x": 5, "y": 5},
         # The board starts from 0, not 1, as computers do.
 
         
@@ -71,7 +74,7 @@ game_data = {
     'snake_head': "\U0001F432",
     'snake_body': "\U0001274E",
     'apple': "\U0001F34E",
-    'obstacle': "\U0001FAA8",
+    'obstacle': "\U00002B1C",
     ######Jackson code below
     # 'turtle': "\U0001F422",
     # 'eagle_icon': "\U0001F985",
@@ -86,7 +89,7 @@ def display_welcome_screen():
     print(" ")
     print("Use WSAD for movement")
     print("Avoid running into the walls / obstacles!")
-    print("Don't touch the ghosts and collect all the Pac-Dots")
+    print("Don't touch the ghosts and collect all the apples")
     
 def main(stdscr):
     curses.curs_set(0)
