@@ -6,7 +6,7 @@ import random
 game_data = {
     'width': 10,
     'height': 10,
-    'player': {"x": 0, "y": 0, "score": 0, "energy": 10, "max_energy": 10},
+    'player': {"x": 0, "y": 0, "score": 0, "energy": 0, "max_energy": 10},#I changed the energy from 10 to 0
     'eagle_pos': {"x": 4, "y": 4},
     'collectibles': [
         {"x": 2, "y": 1, "collected": False},
@@ -216,6 +216,7 @@ def play_game(stdscr):
         # Check lose conditions
         if game_data['player']["energy"] >= 20: #changed the <= to >= and the 0 to 20
             break
+            
 
         if (game_data['player']["x"] == game_data['eagle_pos']["x"] and
             game_data['player']["y"] == game_data['eagle_pos']["y"]):

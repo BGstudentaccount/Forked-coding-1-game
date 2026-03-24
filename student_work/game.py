@@ -67,7 +67,7 @@ game_data = {
     ],
 
     # ASCII icons
-    ###Snake code below
+    ###Pac man code below
     'snake_head': "\U0001F432",
     'snake_body': "\U0001274E",
     'apple': "\U0001F34E",
@@ -82,11 +82,11 @@ game_data = {
 
 def display_welcome_screen():
     print(" ")
-    print("Welcome to Snake!")
+    print("Welcome to Pac man!")
     print(" ")
     print("Use WSAD for movement")
     print("Avoid running into the walls / obstacles!")
-    print("Don't Starve!")
+    print("Don't touch the ghosts and collect all the Pac-Dots")
     
 def main(stdscr):
     curses.curs_set(0)
