@@ -8,6 +8,7 @@ game_data = {
     'height': 10,
     'player': {"x": 0, "y": 0, "score": 0, "energy": 0, "max_energy": 10},#I changed the energy from 10 to 0
     'eagle_pos': {"x": 6, "y": 6},
+    'ghost_pos': {"x": 6, "y": 6},
     'collectibles': [
         {"x": 2, "y": 1, "collected": False},
     ],
@@ -19,6 +20,7 @@ game_data = {
     # ASCII icons
     'snake_head': "\U0001F432",# 🐢
     'snake_body': "\U0001F47B",
+    'ghost': "\U0001F47B",
     'obstacle': "\U0001FAA8 ",# 🪨
     'apple': "\U0001F34E",# 🍃
     # snake icons
