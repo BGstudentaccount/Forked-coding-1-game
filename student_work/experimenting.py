@@ -102,11 +102,11 @@ def check_collectibles():
             game_data['player']["y"] == c["y"]):
 
             c["collected"] = True
-            return game_data['player']["score"] + 5 # I added this
-            #game_data['player']["energy"] = min(
+            #return game_data['player']["score"] + 5 # I added this
+            game_data['player']["energy"] = ( #I removed the "min" that was after the equals sign and now energy works as a score keepers
                 #game_data['player']["max_energy"],
-                #game_data['player']["score"] + 5
-            #)
+                game_data['player']["energy"] + 5
+            )
 
 def move_player(key):
     key = key.lower()
@@ -214,7 +214,7 @@ def play_game(stdscr):
         spawn_leaf()
 
         # Check lose conditions
-        if game_data['player']["energy"] <= 0:
+        if game_data['player']["energy"] >= 20: #changed the <= to >= and the 0 to 20
             break
 
         if (game_data['player']["x"] == game_data['eagle_pos']["x"] and
@@ -227,7 +227,7 @@ def play_game(stdscr):
 
     stdscr.clear()
     stdscr.addstr(2, 2, "GAME OVER")
-    stdscr.addstr(3, 2, f"Final Score (Moves Survived): {game_data['player']['score']}")
+    stdscr.addstr(3, 2, f"Final Score: {game_data['player']['energy']}")
     stdscr.refresh()
     time.sleep(3)
 
