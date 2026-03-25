@@ -63,7 +63,13 @@ game_data = {
         {"x": 4, "y": 5},
         {"x": 6, "y": 5},
         {"x": 5, "y": 6},
-        #{"x": 5, "y": 5},
+        {"x": 2, "y": 2},
+        {"x": 3, "y": 2},
+        {"x": 2, "y": 3},
+        {"x": 2, "y": 4},
+        {"x": 5, "y": 2},
+        {"x": 5, "y": 3},
+        #make the ghosts start here {"x": 5, "y": 5},
         # The board starts from 0, not 1, as computers do.
 
         
