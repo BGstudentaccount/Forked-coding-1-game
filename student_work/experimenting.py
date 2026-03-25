@@ -44,6 +44,8 @@ def draw_board(stdscr):
                 row += game_data['snake_head']
             elif game_data['eagle_pos']["x"] == x and game_data['eagle_pos']["y"] == y:
                 row += game_data['snake_body']
+            elif game_data['ghost_pos']["x"] == x and game_data['ghost_pos']["y"] == y: #I added this
+                row += game_data['ghost'] #I addded this
             elif any(o["x"] == x and o["y"] == y for o in game_data['obstacles']):
                 row += game_data['obstacle']
             elif any(c["x"] == x and c["y"] == y and not c["collected"] for c in game_data['collectibles']):
@@ -96,6 +98,43 @@ def move_eagle():
         new_x, new_y = random.choice(valid_moves)
         game_data['eagle_pos']["x"] = new_x
         game_data['eagle_pos']["y"] = new_y
+
+def move_ghost():
+    directions = [
+        (0, -1),  # up
+        (0, 1),   # down
+        (-1, 0),  # left
+        (1, 0)    # right
+    ]
+
+    random.shuffle(directions)
+
+    ex = game_data['ghost_pos']["x"]
+    ey = game_data['ghost_pos']["y"]
+
+    valid_moves = []
+
+    for dx, dy in directions:
+        new_x = ex + dx
+        new_y = ey + dy
+
+        # Inside board?
+        if not (0 <= new_x < game_data['width'] and
+                0 <= new_y < game_data['height']):
+            continue
+
+        # Rock collision?
+        if any(o["x"] == new_x and o["y"] == new_y
+               for o in game_data['obstacles']):
+            continue
+
+        valid_moves.append((new_x, new_y))
+
+    # If there are valid moves, pick one
+    if valid_moves:
+        new_x, new_y = random.choice(valid_moves)
+        game_data['ghost_pos']["x"] = new_x
+        game_data['ghost_pos']["y"] = new_y
 
 def check_collectibles():
     for c in game_data['collectibles']:
@@ -150,7 +189,7 @@ def spawn_leaf():
         return
 
     # 20% chance each turn
-    if random.random() > 0.01:
+    if random.random() > 0.2:
         return
 
     while True:
@@ -213,6 +252,7 @@ def play_game(stdscr):
 
         check_collectibles()
         move_eagle()
+        move_ghost()
         spawn_leaf()
 
         # Check lose conditions
@@ -222,6 +262,10 @@ def play_game(stdscr):
 
         if (game_data['player']["x"] == game_data['eagle_pos']["x"] and
             game_data['player']["y"] == game_data['eagle_pos']["y"]):
+            break
+        
+        if (game_data['player']["x"] == game_data['ghost_pos']["x"] and
+            game_data['player']["y"] == game_data['ghost_pos']["y"]):
             break
 
         draw_board(stdscr)
