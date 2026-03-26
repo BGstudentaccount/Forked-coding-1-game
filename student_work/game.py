@@ -12,8 +12,9 @@ import time
 game_data = {
     'width': 11,
     'height': 11,
-    'player': {"x": 1, "y": 1, "score": 0, "energy": 10, "max_energy": 10},
-    'eagle_pos': {"x": 4, "y": 4},
+    'player': {"x": 1, "y": 1, "score": 0},
+    'ghost_pos': {"x": 5, "y": 5},
+    'ghost2_pos': {"x": 5, "y": 5},
     'collectibles': [
         {"x": 2, "y": 1, "collected": False},
         {"x": 3, "y": 1, "collected": False},
@@ -39,6 +40,37 @@ game_data = {
         {"x": 4, "y": 4, "collected": False},
         {"x": 6, "y": 4, "collected": False},
         {"x": 9, "y": 4, "collected": False},
+        {"x": 5, "y": 4, "collected": False},
+        {"x": 9, "y": 5, "collected": False},
+        {"x": 8, "y": 5, "collected": False},
+        {"x": 7, "y": 5, "collected": False},
+        {"x": 3, "y": 5, "collected": False},
+        {"x": 2, "y": 5, "collected": False},
+        {"x": 1, "y": 5, "collected": False},
+        {"x": 9, "y": 6, "collected": False},
+        {"x": 7, "y": 6, "collected": False},
+        {"x": 6, "y": 6, "collected": False},
+        {"x": 4, "y": 6, "collected": False},
+        {"x": 3, "y": 6, "collected": False},
+        {"x": 1, "y": 6, "collected": False},
+        {"x": 9, "y": 7, "collected": False},
+        {"x": 6, "y": 7, "collected": False},
+        {"x": 5, "y": 7, "collected": False},
+        {"x": 4, "y": 7, "collected": False},
+        {"x": 1, "y": 7, "collected": False},
+        {"x": 9, "y": 8, "collected": False},
+        {"x": 8, "y": 8, "collected": False},
+        {"x": 6, "y": 8, "collected": False},
+        {"x": 4, "y": 8, "collected": False},
+        {"x": 2, "y": 8, "collected": False},
+        {"x": 1, "y": 8, "collected": False},
+        {"x": 8, "y": 9, "collected": False},
+        {"x": 7, "y": 9, "collected": False},
+        {"x": 6, "y": 9, "collected": False},
+        {"x": 5, "y": 9, "collected": False},
+        {"x": 4, "y": 9, "collected": False},
+        {"x": 3, "y": 9, "collected": False},
+        {"x": 2, "y": 9, "collected": False},
     ],
     'obstacles': [
         {"x": 0, "y": 0},
@@ -116,8 +148,8 @@ game_data = {
 
     # ASCII icons
     ###Pac man code below
-    'snake_head': "\U0001F432",
-    'snake_body': "\U0001274E",
+    'pac_man': "\U0001F432",
+    'ghost': "\U0001F47B",
     'apple': "\U0001F34E",
     'obstacle': "\U00002B1C",
     ######Jackson code below
@@ -152,9 +184,35 @@ def main(stdscr):
             if key.lower() == "q":
                 break
             move_player(key)
+        #these allow the collectibles to be collected and for the ghosts to move
+        check_collectibles()
+        move_ghost()
+        move_ghost2()
 
-            draw_board(stdscr)
-            time.sleep(0.2)
+        # These check the win/loss condtions are met
+        if game_data['player']["score"] >= 55: #changed the <= to >= and the 0 to 20
+            break
+
+        if (game_data['player']["x"] == game_data['ghost_pos']["x"] and
+            game_data['player']["y"] == game_data['ghost_pos']["y"]):
+            break
+        
+        if (game_data['player']["x"] == game_data['ghost2_pos']["x"] and
+            game_data['player']["y"] == game_data['ghost2_pos']["y"]):
+            break
+
+        draw_board(stdscr)
+        time.sleep(0.3)
+        
+        #What these output will change based on if you won or lost
+    stdscr.clear()
+    if game_data['player']['score'] >= 55:
+        stdscr.addstr(2, 2, "You won")
+    else:
+        stdscr.addstr(2, 2, "GAME OVER")
+    stdscr.addstr(3, 2, f"Apples collected: {game_data['player']['score']}/55")
+    stdscr.refresh()
+    time.sleep(3)
 
 def draw_board(stdscr):
     curses.start_color()
@@ -167,11 +225,14 @@ def draw_board(stdscr):
         for x in range(game_data['width']):
             # Player
             if x == game_data['player']['x'] and y == game_data['player']['y']:
-                row += game_data['snake_head']
-            # # Eagle
-            # elif x == game_data['eagle_pos']['x'] and y == game_data['eagle_pos']['y']:
-            #     row += game_data['eagle_icon']
-             # Obstacles
+                row += game_data['pac_man']
+            # # ghosts
+            elif x == game_data['ghost_pos']['x'] and y == game_data['ghost_pos']['y']:
+                 row += game_data['ghost']
+
+            elif x == game_data['ghost2_pos']['x'] and y == game_data['ghost2_pos']['y']:
+                 row += game_data['ghost']
+             # walls
             elif any(o['x'] == x and o['y'] == y for o in game_data['obstacles']):
                  row += game_data['obstacle']
             # Collectibles/ Food
@@ -180,6 +241,92 @@ def draw_board(stdscr):
             else:
                 row += game_data['empty']
         stdscr.addstr(y, 0, row, curses.color_pair(1))
+    
+    stdscr.addstr(game_data['height'] + 1, 0, f"Apples Collected: {game_data['player']['score']}/55")
+
+def move_ghost():
+    directions = [
+        (0, -1),  # up
+        (0, 1),   # down
+        (-1, 0),  # left
+        (1, 0)    # right
+    ]
+
+    random.shuffle(directions)
+
+    ex = game_data['ghost_pos']["x"]
+    ey = game_data['ghost_pos']["y"]
+
+    valid_moves = []
+
+    for dx, dy in directions:
+        new_x = ex + dx
+        new_y = ey + dy
+
+        # Inside board?
+        if not (0 <= new_x < game_data['width'] and
+                0 <= new_y < game_data['height']):
+            continue
+
+        # wall collision?
+        if any(o["x"] == new_x and o["y"] == new_y
+               for o in game_data['obstacles']):
+            continue
+
+        valid_moves.append((new_x, new_y))
+
+    # If there are valid moves, pick one
+    if valid_moves:
+        new_x, new_y = random.choice(valid_moves)
+        game_data['ghost_pos']["x"] = new_x
+        game_data['ghost_pos']["y"] = new_y
+
+def move_ghost2():
+    directions = [
+        (0, -1),  # up
+        (0, 1),   # down
+        (-1, 0),  # left
+        (1, 0)    # right
+    ]
+
+    random.shuffle(directions)
+
+    ex = game_data['ghost2_pos']["x"]
+    ey = game_data['ghost2_pos']["y"]
+
+    valid_moves = []
+
+    for dx, dy in directions:
+        new_x = ex + dx
+        new_y = ey + dy
+
+        # Inside board?
+        if not (0 <= new_x < game_data['width'] and
+                0 <= new_y < game_data['height']):
+            continue
+
+        # wall collision?
+        if any(o["x"] == new_x and o["y"] == new_y
+               for o in game_data['obstacles']):
+            continue
+
+        valid_moves.append((new_x, new_y))
+
+    # If there are valid moves, pick one
+    if valid_moves:
+        new_x, new_y = random.choice(valid_moves)
+        game_data['ghost2_pos']["x"] = new_x
+        game_data['ghost2_pos']["y"] = new_y
+
+def check_collectibles():
+    for c in game_data['collectibles']:
+        if (not c["collected"] and game_data['player']["x"] == c["x"] and game_data['player']["y"] == c["y"]):
+
+            c["collected"] = True
+            
+            game_data['player']["score"] = ( 
+                game_data['player']["score"] + 1
+            )
 
 def move_player(key):
     key = key.lower()
@@ -206,16 +353,11 @@ def move_player(key):
     game_data['player']["x"] = new_x
     game_data['player']["y"] = new_y
 
-    # Energy decreases per move
-    #game_data['player']["energy"] -= 1
-
-    # Score increases per move survived
-    #game_data['player']["score"] += 1
 
     return True
 
 display_welcome_screen()
 time.sleep(3)
 curses.wrapper(main)
-#curses.wrapper(draw_board(stdscr))
+
 

@@ -273,7 +273,10 @@ def play_game(stdscr):
         time.sleep(0.25)
 
     stdscr.clear()
-    stdscr.addstr(2, 2, "GAME OVER")
+    if game_data['player']['energy'] >= 20:
+        stdscr.addstr(2, 2, "You won")
+    else:
+        stdscr.addstr(2, 2, "GAME OVER")
     stdscr.addstr(3, 2, f"Final Score: {game_data['player']['energy']}")
     stdscr.refresh()
     time.sleep(3)
