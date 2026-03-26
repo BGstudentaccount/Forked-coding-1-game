@@ -152,11 +152,6 @@ game_data = {
     'ghost': "\U0001F47B",
     'apple': "\U0001F34E",
     'obstacle': "\U00002B1C",
-    ######Jackson code below
-    # 'turtle': "\U0001F422",
-    # 'eagle_icon': "\U0001F985",
-    # 'obstacle': "\U0001FAA8",
-    # 'leaf': "\U0001F343",
     'empty': "  "
 }
 

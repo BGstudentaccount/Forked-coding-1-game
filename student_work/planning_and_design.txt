@@ -11,28 +11,26 @@ Part I: Planning & Design (15 pts)
 * Outline expansion ideas
 
 Game Idea:
-Snake?
 Pac man
-NO PLATFORMERS AS THEY NEED PHYSICS
 
 Game Rules:
 #-Don't run into the walls
-#-Don't run into your own body
-#-Don't run into obstacles
+#-Don't run into the ghosts
+#-Don't run into walls
 
 Major Game Elements:
 #-11x11 board size
 #-Pac man
 #-Food (emojis) --> apples, etc.
-#-Scoring system: Every square survived is one point. Max score is every square (25 points for 25 square board size)
 
 Gameplay Process:
 REMAKE THIS 
-# You start off with only one square size snake body, then move around with the arrows on your keyboard in order to "eat" randomly\
-# appearing apples/food/emojis. Everytime you run into/eat one successfully, you grow by one square. Throughout this, you try to avoid
-# running into yourself or the walls. You win by filling in every square.
+# You start in box maze
+# Apples are everywhere
+# You win by collecting all the apples and avoiding the ghosts.
 
 Game Icons:
-Snake head: "\U0001F432"
-Snake body: "\U000274E"
-Apples: "\U0001F34E"
+'pac_man': "\U0001F432",
+'ghost': "\U0001F47B",
+'apple': "\U0001F34E",
+'obstacle': "\U00002B1C",
