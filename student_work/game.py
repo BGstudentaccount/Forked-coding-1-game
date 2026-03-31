@@ -162,6 +162,7 @@ def display_welcome_screen():
     print("Use WSAD for movement")
     print("Avoid running into the walls / obstacles!")
     print("Don't touch the ghosts and collect all the apples")
+    print("Size up the terminal")
     
 def main(stdscr):
     curses.curs_set(0)
